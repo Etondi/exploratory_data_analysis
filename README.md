@@ -72,7 +72,7 @@ CREATE TABLE `layoffs_staging2` (
   `country` text,
   `funds_raised_millions` int DEFAULT NULL,
   `row_num` INT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 INSERT INTO layoffs_staging2
 SELECT *,
@@ -82,10 +82,16 @@ FROM layoffs_staging;
 ```
 
 ### Standardize Data
-Standardization involved trimming whitespace, unifying industry names, and correcting country names. The `date` column was converted to a proper date format.
+Standardization involved trimming whitespace, unifying industry names, and correcting country names. The `date` column was also converted to a proper date format.
 
 ```sql
 -- Trimming company names
+SELECT DISTINCT (TRIM(company))
+FROM layoffs_staging2;
+
+SELECT company, TRIM(company)
+FROM layoffs_staging2;
+
 UPDATE layoffs_staging2
 SET company = TRIM(company);
 
@@ -95,11 +101,31 @@ SET industry = 'Crypto'
 WHERE industry LIKE 'Crypto%';
 
 -- Correcting country names
-UPDATE layoffs_staging2 SET country = TRIM(TRAILING '.' FROM country) WHERE country LIKE 'United States%';
+SELECT DISTINCT country
+FROM layoffs_staging2
+WHERE country LIKE 'United States%';
+
+SELECT DISTINCT country, TRIM(TRAILING '.' FROM country)
+FROM layoffs_staging2
+ORDER BY 1;
+
+UPDATE layoffs_staging2
+SET country = TRIM(TRAILING '.' FROM country)
+WHERE country LIKE 'United States%';
 
 -- Converting and updating the date column
-UPDATE layoffs_staging2 SET `date` = STR_TO_DATE(`date`, '%m/%d/%Y');
-ALTER TABLE layoffs_staging2 MODIFY COLUMN `date` DATE;
+SELECT `date`
+FROM layoffs_staging2;
+
+SELECT `date`,
+STR_TO_DATE(`date`, '%m/%d/%Y')
+FROM layoffs_staging2;
+
+UPDATE layoffs_staging2
+SET `date` = STR_TO_DATE(`date`, '%m/%d/%Y');
+
+ALTER TABLE layoffs_staging2
+MODIFY COLUMN `date` DATE;
 ```
 
 ### Handle Null Values
@@ -107,16 +133,38 @@ Null and blank values were addressed by filling in missing information where pos
 
 ```sql
 -- Updating blank industry values to NULL
-UPDATE layoffs_staging2 SET industry = NULL WHERE industry = '';
+UPDATE layoffs_staging2
+SET industry = NULL
+WHERE industry = '';
 
--- Populating missing industry values from other rows
+--SELECT *
+FROM layoffs_staging2 t1
+JOIN layoffs_staging2 t2
+	ON t1.company = t2.company
+    AND t1.location = t2.location
+WHERE (t1.industry IS NULL OR t1.industry = '')
+AND t2.industry IS NOT NULL;
+
+SELECT t1.industry, t2.industry
+FROM layoffs_staging2 t1
+JOIN layoffs_staging2 t2
+	ON t1.company = t2.company
+    AND t1.location = t2.location
+WHERE t1.industry IS NULL
+AND t2.industry IS NOT NULL;
+
 UPDATE layoffs_staging2 t1
-JOIN layoffs_staging2 t2 ON t1.company = t2.company
+JOIN layoffs_staging2 t2
+	ON t1.company = t2.company
 SET t1.industry = t2.industry
-WHERE t1.industry IS NULL AND t2.industry IS NOT NULL;
+WHERE t1.industry IS NULL
+AND t2.industry IS NOT NULL;
 
 -- Deleting rows with critical missing data
-DELETE FROM layoffs_staging2 WHERE total_laid_off IS NULL AND percentage_laid_off IS NULL;
+DELETE
+FROM layoffs_staging2
+WHERE total_laid_off IS NULL
+AND percentage_laid_off IS NULL;
 ```
 
 ## Exploratory Data Analysis
@@ -125,19 +173,31 @@ The EDA phase involved querying the cleaned dataset to extract meaningful insigh
 ### Key Queries and Insights
 - **Total Laid Off by Company**:
   ```sql
-  SELECT company, SUM(total_laid_off) FROM layoffs_staging2 GROUP BY company ORDER BY 2 DESC;
+  SELECT company, SUM(total_laid_off)
+  FROM layoffs_staging2
+    GROUP BY company
+    ORDER BY 2 DESC;
   ```
 - **Total Laid Off by Industry**:
   ```sql
-  SELECT industry, SUM(total_laid_off) FROM layoffs_staging2 GROUP BY industry ORDER BY 2 DESC;
+  SELECT industry, SUM(total_laid_off)
+  FROM layoffs_staging2
+    GROUP BY industry
+    ORDER BY 2 DESC;
   ```
 - **Total Laid Off by Country**:
   ```sql
-  SELECT country, SUM(total_laid_off) FROM layoffs_staging2 GROUP BY country ORDER BY 2 DESC;
+  SELECT country, SUM(total_laid_off)
+  FROM layoffs_staging2
+    GROUP BY country
+    ORDER BY 2 DESC;
   ```
 - **Yearly Layoff Trends**:
   ```sql
-  SELECT YEAR(`date`), SUM(total_laid_off) FROM layoffs_staging2 GROUP BY YEAR(`date`) ORDER BY 1 DESC;
+  SELECT YEAR(`date`), SUM(total_laid_off)
+  FROM layoffs_staging2
+    GROUP BY YEAR(`date`)
+    ORDER BY 1 DESC;
   ```
 - **Monthly Rolling Total of Layoffs**:
   ```sql
@@ -158,21 +218,22 @@ The data analysis revealed several important trends:
 - Temporal trends, showing peaks in specific months or years
 
 ## Findings
-1. **Top Companies**: [Include specific findings about top companies with the highest layoffs]
-2. **Most Affected Industries**: [Detail the industries with significant layoffs]
-3. **Geographic Trends**: [Discuss which countries experienced the most layoffs]
-4. **Temporal Trends**: [Highlight any significant peaks in layoffs over time]
 
-## Recommendations
-Based on the analysis, the following recommendations are made:
-- **For Companies**: [Suggestions on mitigating layoffs]
-- **For Policymakers**: [Policy recommendations to address layoffs]
-- **For Future Research**: [Areas for further study or data collection improvements]
+1. **Top Companies by Layoffs:**
+   - **Amazon:** 18,150 layoffs, the highest among the listed companies.
+   - **Google:** 12,000 layoffs.
+   - **Meta:** 11,000 layoffs.
+   - Other significant layoffs include Salesforce (10,090), Microsoft (10,000), and Philips (10,000).
 
-## References
-- Data Source: [Provide the link or citation for the dataset]
-- Tools and Technologies: [List any additional tools used]
+2. **Industry Analysis:**
+   - **Consumer Sector:** 45,182 layoffs, the highest among all industries.
+   - **Retail Sector:** 43,613 layoffs.
+   - **Other Sectors (not specified):** 36,289 layoffs.
+   - **Transportation Sector:** 33,748 layoffs.
+   - **Finance Sector:** 28,344 layoffs.
+   - Significant layoffs are also seen in Healthcare (25,953), Food (22,855), and Real Estate (17,565).
 
----
-
-Feel free to modify and expand on these sections based on additional details or insights you have from your analysis.
+3. **Companies with Layoffs Across Diverse Industries:**
+   - **Amazon:** Involved in multiple sectors including Consumer, Retail, and Logistics.
+   - **Google and Meta:** Primarily in the Technology sector but also impacting Media and Advertising.
+   - **Uber:** Significant in the Transportation sector.
