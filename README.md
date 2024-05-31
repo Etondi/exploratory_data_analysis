@@ -17,7 +17,7 @@
 This project focuses on analyzing data of layoffs around the world. The primary objective was to clean and explore the dataset to uncover insights regarding the layoffs across various companies and industries. The analysis includes data cleaning, standardization, and exploratory data analysis (EDA) to identify trends and patterns.
 
 ## Data Sources
-The dataset used in this project was obtained from [GitHub/AlexTheAnalyst](https://github.com/AlexTheAnalyst/MySQL-YouTube-Series/blob/main/layoffs.csv). It includes information on layoffs such as the company name, location, industry, total laid off, percentage laid off, date, stage of the company, country, and funds raised in millions.
+The dataset used in this project was obtained from [Kaggle](https://www.kaggle.com/datasets/swaptr/layoffs-2022). It includes information on layoffs such as the company name, location, industry, total laid off, percentage laid off, date, stage of the company, country, and funds raised in millions.
 
 ## Tools
 The following tools and technologies were used in this project:
