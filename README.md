@@ -39,7 +39,6 @@ SELECT *
 FROM layoffs;
 
 -- Identifying duplicates with partition and cte
-
 SELECT *,
 ROW_NUMBER() OVER(
 PARTITION BY company, industry, total_laid_off, percentage_laid_off, `date`) AS row_num
@@ -60,7 +59,6 @@ WHERE row_num > 1;
 DELETE
 FROM layoffs_staging2
 WHERE row_num > 1;
-```
 
 -- Creating a new table with the updated information
 CREATE TABLE `layoffs_staging2` (
@@ -75,6 +73,7 @@ CREATE TABLE `layoffs_staging2` (
   `funds_raised_millions` int DEFAULT NULL,
   `row_num` INT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+```
 
 ### Standardize Data
 Standardization involved trimming whitespace, unifying industry names, and correcting country names. The `date` column was converted to a proper date format.
