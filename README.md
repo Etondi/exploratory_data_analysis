@@ -22,6 +22,7 @@ The dataset used in this project was obtained from [Kaggle](https://www.kaggle.c
 ## Tools
 The following tools and technologies were used in this project:
 - **MySQL**: For data cleaning and transformation
+- **Tableau**: For data visualization
 
 ## Data Cleaning
 The data cleaning process involved several steps to ensure the dataset was accurate and ready for analysis.
