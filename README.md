@@ -217,6 +217,9 @@ The data analysis revealed several important trends:
 - Geographic distribution of layoffs
 - Temporal trends, showing peaks in specific months or years
 
+## Visualization
+
+
 ## Findings
 
 1. **Top Companies by Layoffs:**
@@ -237,5 +240,3 @@ The data analysis revealed several important trends:
    - **Amazon:** Involved in multiple sectors including Consumer, Retail, and Logistics.
    - **Google and Meta:** Primarily in the Technology sector but also impacting Media and Advertising.
    - **Uber:** Significant in the Transportation sector.
-
-## Visualization
