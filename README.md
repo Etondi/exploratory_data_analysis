@@ -9,7 +9,7 @@
 - [Exploratory_Data_Analysis](#exploratory-data-analysis)
 - [Data_Analysis](#data-analysis)
 - [Findings](#findings)
-- [Recommendations](#recommendations)
+- [Visualization](#visualization)
 
 
 ## Project Overview
@@ -237,3 +237,5 @@ The data analysis revealed several important trends:
    - **Amazon:** Involved in multiple sectors including Consumer, Retail, and Logistics.
    - **Google and Meta:** Primarily in the Technology sector but also impacting Media and Advertising.
    - **Uber:** Significant in the Transportation sector.
+
+## Visualization
