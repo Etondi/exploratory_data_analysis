@@ -11,7 +11,6 @@
 - [Findings](#findings)
 - [Recommendations](#recommendations)
 
-# Layoffs Data Analysis
 
 ## Project Overview
 This project focuses on analyzing data of layoffs around the world. The primary objective was to clean and explore the dataset to uncover insights regarding the layoffs across various companies and industries. The analysis includes data cleaning, standardization, and exploratory data analysis (EDA) to identify trends and patterns.
