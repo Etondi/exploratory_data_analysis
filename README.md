@@ -9,7 +9,6 @@
 - [Exploratory_Data_Analysis](#exploratory-data-analysis)
 - [Data_Analysis](#data-analysis)
 - [Findings](#findings)
-- [Visualization](#visualization)
 
 
 ## Project Overview
