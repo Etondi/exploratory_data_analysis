@@ -217,9 +217,6 @@ The data analysis revealed several important trends:
 - Geographic distribution of layoffs
 - Temporal trends, showing peaks in specific months or years
 
-## Visualization
-
-
 ## Findings
 
 1. **Top Companies by Layoffs:**
