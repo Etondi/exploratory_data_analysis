@@ -7,7 +7,7 @@
 - [Tools](#tools)
 - [Data Cleaning](#data-cleaning)
 - [Exploratory_Data_Analysis](#exploratory-data-analysis)
-- [Data_Analysis](#data-analysis)
+- [Data Analysis](#data-analysis)
 - [Findings](#findings)
 
 
