@@ -1,5 +1,5 @@
 # World Layoffs Analysis
-
+ 
 ## Table of Contents
 
 - [Project Overview](#project-overview)
