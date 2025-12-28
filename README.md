@@ -6,7 +6,7 @@
 - [Data Sources](#data-sources)
 - [Tools](#tools)
 - [Data Cleaning](#data-cleaning)
-- [Exploratory_Data_Analysis](#exploratory-data-analysis)
+- [Exploratory Data Analysis](#exploratory-data-analysis)
 - [Data Analysis](#data-analysis)
 - [Findings](#findings)
 
