@@ -12,7 +12,7 @@
 
 
 ## Project Overview
-This project focuses on analyzing data of layoffs around the world. The primary objective was to clean and explore the dataset to uncover insights regarding the layoffs across various companies and industries. The analysis includes data cleaning, standardization, and exploratory data analysis (EDA) to identify trends and patterns.
+Conducted exploratory analysis on a global layoffs dataset to uncover trends across industries and companies. The project demonstrates SQL-based data cleaning, aggregation, and pattern discovery to support workforce and macro-level analysis.
 
 ## Data Sources
 The dataset used in this project was obtained from [Kaggle](https://www.kaggle.com/datasets/swaptr/layoffs-2022).
